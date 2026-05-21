@@ -27,7 +27,7 @@ export default function AuditPage() {
           </h1>
 
           <p className={styles.subheading}>
-            Select all that apply. You'll add plan details next.
+            Select all that apply. You&apos;ll add plan details next.
           </p>
         </div>
 

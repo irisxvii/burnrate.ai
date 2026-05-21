@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
-
+import Image from "next/image";
 import { tools } from "@/data/tools";
 import { plans } from "@/data/plans";
 
@@ -42,10 +42,12 @@ export default function AuditDetailsPage() {
               <div className={styles.cardHeader}>
                 <div className={styles.toolInfo}>
                   <div className={styles.icon}>
-                    <img
-                      src={tool.icon}
-                      alt={tool.name}
-                    />
+                    <Image
+                        src={tool.icon}
+                        alt={tool.name}
+                        width={24}
+                        height={24}
+                        />
                   </div>
 
                   <div>

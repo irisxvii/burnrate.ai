@@ -1,13 +1,14 @@
 import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
     <main className={styles.page}>
       <nav className={styles.nav}>
         <div className={styles.navInner}>
-          <a className={styles.logo} href="/">
+          <Link className={styles.logo} href="/">
             <span>BurnRate AI</span>
-          </a>
+          </Link>
 
           <div className={styles.navLinks}>
             <button className={`${styles.navTab} ${styles.active}`}>
