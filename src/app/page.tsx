@@ -19,7 +19,7 @@ export default function HomePage() {
           </div>
 
           <button className={styles.navCta}>
-            Run Free Audit →
+            Run Free Audit
           </button>
         </div>
       </nav>
@@ -43,7 +43,7 @@ export default function HomePage() {
 
         <div className={styles.heroButtons}>
           <button className={styles.primaryBtn}>
-            Run Your Free Audit →
+            Run Your Free Audit
           </button>
 
           <button className={styles.secondaryBtn}>
