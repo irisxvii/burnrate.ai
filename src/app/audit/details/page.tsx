@@ -5,15 +5,31 @@ import Image from "next/image";
 import { tools } from "@/data/tools";
 import { plans } from "@/data/plans";
 
-export default function AuditDetailsPage() {
-  const selectedTools = [
-    "cursor",
-    "claude",
-  ];
+import { useAuditStore } from "@/store/audit-store";
+import { useRouter } from "next/navigation";
 
-  const filteredTools = tools.filter((tool) =>
-    selectedTools.includes(tool.id)
-  );
+export default function AuditDetailsPage() {
+    const router = useRouter();
+
+    const selectedTools =
+      useAuditStore(
+        (state) => state.selectedTools
+      );
+
+    const toolDetails =
+      useAuditStore(
+        (state) => state.toolDetails
+      );
+
+    const updateTool =
+      useAuditStore(
+        (state) => state.updateTool
+      );
+
+    const filteredTools = tools.filter(
+      (tool) =>
+        selectedTools.includes(tool.id)
+    );
 
   return (
     <main className={styles.page}>
@@ -61,7 +77,19 @@ export default function AuditDetailsPage() {
                 <div className={styles.field}>
                   <label>Plan</label>
 
-                  <select>
+                  <select
+                    value={
+                        toolDetails[tool.id]?.plan || ""
+                    }
+                    onChange={(e) =>
+                        updateTool(
+                        tool.id,
+                        "plan",
+                        e.target.value
+                        )
+                    }
+                    >
+
                     {plans[
                       tool.id as keyof typeof plans
                     ]?.map((plan) => (
@@ -78,7 +106,17 @@ export default function AuditDetailsPage() {
                   <input
                     type="number"
                     placeholder="$150"
-                  />
+                    value={
+                        toolDetails[tool.id]?.spend || ""
+                    }
+                    onChange={(e) =>
+                        updateTool(
+                        tool.id,
+                        "spend",
+                        Number(e.target.value)
+                        )
+                    }
+                    />
                 </div>
 
                 <div className={styles.field}>
@@ -87,7 +125,17 @@ export default function AuditDetailsPage() {
                   <input
                     type="number"
                     placeholder="5"
-                  />
+                    value={
+                        toolDetails[tool.id]?.seats || ""
+                    }
+                    onChange={(e) =>
+                        updateTool(
+                        tool.id,
+                        "seats",
+                        Number(e.target.value)
+                        )
+                    }
+                    />
                 </div>
               </div>
             </div>
@@ -95,9 +143,14 @@ export default function AuditDetailsPage() {
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.continueBtn}>
+          <button
+            className={styles.continueBtn}
+            onClick={() => {
+                router.push("/audit/team");
+            }}
+            >
             Continue
-          </button>
+            </button>
         </div>
       </div>
     </main>

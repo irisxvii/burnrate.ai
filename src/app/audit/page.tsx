@@ -1,20 +1,39 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./page.module.css";
 import { tools } from "@/data/tools";
 import Image from "next/image";
 
+import { useRouter } from "next/navigation";
+import { useAuditStore } from "@/store/audit-store";
+
 export default function AuditPage() {
-  const [selectedTools, setSelectedTools] = useState<string[]>([]);
+  const selectedTools =
+    useAuditStore(
+      (state) => state.selectedTools
+    );
+
+  const setSelectedTools =
+    useAuditStore(
+      (state) => state.setSelectedTools
+    );
 
   const toggleTool = (toolId: string) => {
-    setSelectedTools((prev) =>
-      prev.includes(toolId)
-        ? prev.filter((id) => id !== toolId)
-        : [...prev, toolId]
-    );
+    if (selectedTools.includes(toolId)) {
+      setSelectedTools(
+        selectedTools.filter(
+          (id) => id !== toolId
+        )
+      );
+    } else {
+      setSelectedTools([
+        ...selectedTools,
+        toolId,
+      ]);
+    }
   };
+
+  const router = useRouter();
 
   return (
     <main className={styles.page}>
@@ -75,9 +94,12 @@ export default function AuditPage() {
           <button
             className={styles.continueBtn}
             disabled={selectedTools.length === 0}
-          >
-            Continue
-          </button>
+            onClick={() => {
+                router.push("/audit/details");
+            }}
+            >
+            Continue 
+            </button>
         </div>
       </div>
     </main>
