@@ -1,7 +1,12 @@
+"use client";
+
 import styles from "./page.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const router= useRouter()
+  
   return (
     <main className={styles.page}>
       <nav className={styles.nav}>
@@ -18,7 +23,11 @@ export default function HomePage() {
             <button className={styles.navTab}>Sample Report</button>
           </div>
 
-          <button className={styles.navCta}>
+          <button 
+            className={styles.navCta}
+            onClick={() => {
+                router.push("/audit");
+            }}>
             Run Free Audit
           </button>
         </div>
@@ -42,7 +51,11 @@ export default function HomePage() {
         </p>
 
         <div className={styles.heroButtons}>
-          <button className={styles.primaryBtn}>
+          <button 
+            className={styles.primaryBtn}
+            onClick={()=>{
+              router.push("/audit")
+            }}>
             Run Your Free Audit
           </button>
 
