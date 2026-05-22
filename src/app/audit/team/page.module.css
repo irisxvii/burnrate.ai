@@ -126,3 +126,10 @@
 .generateBtn:hover {
   opacity: 0.9;
 }
+
+.selected {
+  border-color: #9281f7;
+  background: rgba(146, 129, 247, 0.12);
+
+  color: white;
+}

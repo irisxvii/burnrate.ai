@@ -12,22 +12,16 @@ export default function AuditDetailsPage() {
     const router = useRouter();
 
     const selectedTools =
-      useAuditStore(
-        (state) => state.selectedTools
-      );
+      useAuditStore((state) => state.selectedTools);
 
     const toolDetails =
-      useAuditStore(
-        (state) => state.toolDetails
-      );
+      useAuditStore((state) => state.toolDetails);
 
     const updateTool =
-      useAuditStore(
-        (state) => state.updateTool
-      );
+      useAuditStore((state) => state.updateTool);
 
-    const filteredTools = tools.filter(
-      (tool) =>
+    const filteredTools = 
+      tools.filter((tool) =>
         selectedTools.includes(tool.id)
     );
 
@@ -44,8 +38,7 @@ export default function AuditDetailsPage() {
           </h1>
 
           <p className={styles.subheading}>
-            Tell us what your team currently pays
-            for each selected AI tool.
+            Tell us what your team currently pays for each selected AI tool.
           </p>
         </div>
 
@@ -82,11 +75,7 @@ export default function AuditDetailsPage() {
                         toolDetails[tool.id]?.plan || ""
                     }
                     onChange={(e) =>
-                        updateTool(
-                        tool.id,
-                        "plan",
-                        e.target.value
-                        )
+                        updateTool(tool.id, "plan", e.target.value)
                     }
                     >
 
@@ -110,11 +99,7 @@ export default function AuditDetailsPage() {
                         toolDetails[tool.id]?.spend || ""
                     }
                     onChange={(e) =>
-                        updateTool(
-                        tool.id,
-                        "spend",
-                        Number(e.target.value)
-                        )
+                        updateTool( tool.id, "spend", Number(e.target.value) )
                     }
                     />
                 </div>
@@ -129,11 +114,7 @@ export default function AuditDetailsPage() {
                         toolDetails[tool.id]?.seats || ""
                     }
                     onChange={(e) =>
-                        updateTool(
-                        tool.id,
-                        "seats",
-                        Number(e.target.value)
-                        )
+                        updateTool( tool.id, "seats", Number(e.target.value) )
                     }
                     />
                 </div>

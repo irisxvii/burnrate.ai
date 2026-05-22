@@ -2,7 +2,32 @@
 
 import styles from "./page.module.css";
 
+import { useRouter } from "next/navigation";
+import { useAuditStore } from "@/store/audit-store";
+
 export default function AuditTeamPage() {
+  const router = useRouter();
+
+  const teamSize = 
+    useAuditStore((state) => state.teamSize);
+
+  const setTeamSize = 
+    useAuditStore((state) => state.setTeamSize);
+
+  const useCase = 
+    useAuditStore((state) => state.useCase);
+
+  const setUseCase = 
+    useAuditStore((state) => state.setUseCase);
+
+  const useCases = [
+    "Coding",
+    "Writing",
+    "Research",
+    "Data",
+    "Mixed",
+  ];
+  
   return (
     <main className={styles.page}>
       <div className={styles.container}>
@@ -16,8 +41,7 @@ export default function AuditTeamPage() {
           </h1>
 
           <p className={styles.subheading}>
-            A little context helps generate more
-            relevant savings recommendations.
+            A little context helps generate more relevant savings recommendations.
           </p>
         </div>
 
@@ -30,6 +54,9 @@ export default function AuditTeamPage() {
             <input
               type="number"
               placeholder="10"
+              value={teamSize}
+              onChange={(e) => 
+                setTeamSize(Number(e.target.value))}
             />
 
             <span className={styles.helper}>
@@ -43,31 +70,33 @@ export default function AuditTeamPage() {
             </label>
 
             <div className={styles.options}>
-              <button className={styles.option}>
-                Coding
-              </button>
-
-              <button className={styles.option}>
-                Writing
-              </button>
-
-              <button className={styles.option}>
-                Research
-              </button>
-
-              <button className={styles.option}>
-                Data
-              </button>
-
-              <button className={styles.option}>
-                Mixed
-              </button>
+              {useCases.map((caseItem) => (
+                <button
+                  key={caseItem}
+                  type="button"
+                  className={`${styles.option} ${
+                    useCase === caseItem
+                      ? styles.selected
+                      : ""
+                  }`}
+                  onClick={() => setUseCase(caseItem)}
+                >
+                  {caseItem}
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.generateBtn}>
+          <button
+            className={styles.generateBtn}
+            disabled={!teamSize || !useCase}
+
+            onClick={() => {
+              router.push("/audit/results");
+            }}
+          >
             Generate Audit
           </button>
         </div>

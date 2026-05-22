@@ -9,14 +9,10 @@ import { useAuditStore } from "@/store/audit-store";
 
 export default function AuditPage() {
   const selectedTools =
-    useAuditStore(
-      (state) => state.selectedTools
-    );
+    useAuditStore((state) => state.selectedTools);
 
   const setSelectedTools =
-    useAuditStore(
-      (state) => state.setSelectedTools
-    );
+    useAuditStore((state) => state.setSelectedTools);
 
   const toggleTool = (toolId: string) => {
     if (selectedTools.includes(toolId)) {

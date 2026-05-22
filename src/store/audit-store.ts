@@ -4,9 +4,7 @@ import { persist } from "zustand/middleware";
 import { AuditData } from "@/types/audit";
 
 interface AuditStore extends AuditData {
-  setSelectedTools: (
-    tools: string[]
-  ) => void;
+  setSelectedTools: (tools: string[]) => void;
 
   updateTool: (
     toolId: string,
@@ -14,13 +12,9 @@ interface AuditStore extends AuditData {
     value: string | number
   ) => void;
 
-  setUseCase: (
-    useCase: string
-  ) => void;
+  setUseCase: (useCase: string) => void;
 
-  setTeamSize: (
-    size: number
-  ) => void;
+  setTeamSize: (size: number) => void;
 
   resetAudit: () => void;
 }
@@ -38,18 +32,10 @@ export const useAuditStore =
       (set) => ({
         ...initialState,
 
-        setSelectedTools: (
-          tools
-        ) =>
-          set({
-            selectedTools: tools,
-          }),
+        setSelectedTools: (tools) =>
+          set({selectedTools: tools,}),
 
-        updateTool: (
-          toolId,
-          field,
-          value
-        ) =>
+        updateTool: (toolId, field, value) =>
           set((state) => ({
             toolDetails: {
               ...state.toolDetails,
@@ -64,24 +50,14 @@ export const useAuditStore =
             },
           })),
 
-        setUseCase: (
-          useCase
-        ) =>
-          set({
-            useCase,
-          }),
+        setUseCase: (useCase) =>
+          set({useCase,}),
 
-        setTeamSize: (
-          teamSize
-        ) =>
-          set({
-            teamSize,
-          }),
+        setTeamSize: (teamSize) =>
+          set({teamSize,}),
 
         resetAudit: () =>
-          set({
-            ...initialState,
-          }),
+          set({...initialState,}),
       }),
 
       {
