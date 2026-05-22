@@ -11,4 +11,20 @@ I realized that structuring the onboarding flow properly makes the product feel 
 No major blockers today. Most of the time went into understanding the flow.
 
 **Plan for tomorrow:**  
-Connect onboarding steps using localStorage, complete Step 3 of the audit flow, and start implementing the audit logic structure.
+Connect onboarding steps, complete Step 3 of the audit flow, and start implementing the audit logic structure.
+
+## Day 2 - 2026-05-22
+
+**Hours worked:** 5
+
+**What I did:**  
+Completed the multi-step audit onboarding flow and connected all steps using Zustand. Built the initial audit results page ui with savings overview, recommendation cards, and CTA sections. Added structured pricing references in `PRICING_DATA.md` and updated supported plans for all tools.
+
+**What I learned:**  
+I learned how much cleaner state management becomes when moving shared onboarding state into a centralized store instead of manually passing data between pages.
+
+**Blockers / what I'm stuck on:**  
+Spent some time refining the audit logic structure and deciding how to handle pricing models that use custom or usage-based billing instead of fixed monthly plans.
+
+**Plan for tomorrow:**  
+Implement the audit engine logic, connect dynamic recommendation generation to the results page, and improve the accuracy of savings calculations and reasoning.
