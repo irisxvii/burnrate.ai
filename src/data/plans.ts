@@ -1,37 +1,38 @@
 export const plans = {
   chatgpt: [
+    "Go",
     "Plus",
-    "Team",
+    "Pro",
+    "Business",
     "Enterprise",
-    "API Direct",
   ],
 
   claude: [
-    "Free",
     "Pro",
     "Max",
-    "Team",
+    "Team Standard",
+    "Team Premium",
     "Enterprise",
-    "API Direct",
   ],
 
   copilot: [
-    "Individual",
+    "Pro",
     "Business",
     "Enterprise",
   ],
 
   cursor: [
-    "Hobby",
     "Pro",
-    "Business",
+    "Pro+",
+    "Ultra",
+    "Teams",
     "Enterprise",
   ],
 
   gemini: [
-    "Pro",
-    "Ultra",
-    "API",
+    "Google AI Plus",
+    "Google AI Pro",
+    "Google AI Ultra",
   ],
 
   "openai-api": [
@@ -39,12 +40,15 @@ export const plans = {
   ],
 
   "anthropic-api": [
-    "API Direct",
+    "Opus 4.7",
+    "Sonnet 4.6",
+    "Haiku 4.5",
   ],
 
   windsurf: [
-    "Free",
     "Pro",
+    "Max",
     "Teams",
+    "Enterprise",
   ],
 };
