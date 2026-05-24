@@ -95,7 +95,7 @@ export default function AuditResultsPage() {
           </div>
         </section>
 
-        {totalMonthlySavings >= 4000 && (
+        {totalMonthlySavings >= 8500 && (
           <section className={styles.cta}>
             <div className={styles.ctaCard}>
               <div>
@@ -111,6 +111,25 @@ export default function AuditResultsPage() {
             </div>
           </section>
         )}
+
+        {totalMonthlySavings < 8500 && (
+        <section className={styles.cta}>
+          <div className={`${styles.ctaCard} ${styles.optimizedCard}`}>
+            <div>
+              <p className={styles.ctaLabel}>
+                STACK STATUS
+              </p>
+              <h2>
+                Your current AI spending appears reasonably optimized. 
+              </h2>
+              <p>We’ll notify you when new optimization opportunities apply to your stack.</p>
+            </div>
+            <button className={styles.ctaBtn}>
+              Notify Me
+            </button>
+          </div>
+        </section>
+      )}
       </div>
     </main>
   );
