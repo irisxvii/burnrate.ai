@@ -31,13 +31,32 @@ Implement the audit engine logic, connect dynamic recommendation generation to t
 
 ## Day 3 - 2026-05-23
 
-**Hours worked:** 0
+**Hours worked:** 1
 
 **What I did:**  
-Did not work on the project today due to personal time and being away from my setup for most of the day.
+Worked briefly on the project and added the `PRICING_DATA.md`. Spent some time organizing pricing information consistently across tools to make the later audit logic implementation cleaner.
 
 **What I learned:**  
-No technical progress today.
+No major technical learnings today since most of the work involved organizing pricing references and planning the audit calculation structure.
 
 **Blockers / what I'm stuck on:**  
-No blockers currently.
+No blockers currently. Did not spend many hours on the project today because I was away from my setup for most of the day.
+
+## Day 4 - 2026-05-24
+
+**Hours worked:** 4.5
+
+**What I did:**  
+Implemented the core audit engine logic and connected it fully to the results page. Added dynamic recommendation generation for oversized plans, unused seats, and overlapping AI coding tools. Integrated currency normalization to handle both INR and USD pricing consistently across calculations. Optimized-state messaging for low savings audits, and conditional CTA rendering for high-savings teams.
+
+Also implemented AI-generated personalized audit summaries. Added fallback handling for API failures and documented the full prompt flow inside `PROMPTS.md`.
+
+**What I learned:**  
+Most of today went into debugging rather than learning something completely new. A large part of the work involved improving the reliability of the audit flow, fixing calculation edge cases, and handling API integration issues cleanly.
+
+**Blockers / what I'm stuck on:**  
+Ran into API quota and model compatibility issues while integrating Anthropic and Gemini APIs. The fallback system works correctly, but free-tier quota limitations prevented consistent live AI responses during testing.
+Also spent time debugging React hook dependency warnings and preventing duplicate recommendation generation in overlap detection logic.
+ 
+**Plan for tomorrow:**  
+Implement lead capture and storage flow for completed audits. Integrate transactional email confirmation and high-savings follow-up messaging. Also plan to add basic abuse protection.
