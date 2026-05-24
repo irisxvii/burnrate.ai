@@ -54,7 +54,7 @@ export function runAudit(data: AuditData): AuditResult {
       continue;
     }
 
-    const currentSpend = normalizePrice(detail.spend,planInfo.currency);
+    const currentSpend = detail.spend;
 
     let recommendedPlan = detail.plan;
     let recommendedSpend = currentSpend;
@@ -145,16 +145,14 @@ export function runAudit(data: AuditData): AuditResult {
           return;
         }
 
-        const overlapPlan = pricing[toolId]?.[detail.plan];
-
         recommendations.push({
           toolId,
           toolName: TOOL_NAMES[toolId] ?? toolId,
           currentPlan: detail.plan,
           recommendedPlan: "Remove tool",
-          currentSpend: normalizePrice(detail.spend, overlapPlan?.currency ?? "USD"),
+          currentSpend: detail.spend,
           recommendedSpend: 0,
-          savings: normalizePrice(detail.spend, overlapPlan?.currency ?? "USD"),
+          savings: detail.spend,
           reason: "Your team currently pays for multiple AI coding assistants with overlapping functionality.",
         });
       });

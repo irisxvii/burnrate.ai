@@ -90,11 +90,11 @@ export default function AuditDetailsPage() {
                 </div>
 
                 <div className={styles.field}>
-                  <label>Monthly Spend</label>
+                  <label>Total Monthly Spend (₹)</label>
 
                   <input
                     type="number"
-                    placeholder="$150"
+                    placeholder="₹18000"
                     value={
                         toolDetails[tool.id]?.spend || ""
                     }
