@@ -205,6 +205,30 @@
   line-height: 1.6;
 }
 
+.summary {
+  margin-top: 32px;
+}
+
+.summaryCard {
+  border: 1px solid #27272a;
+  background: #111114;
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.summaryLabel {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: #71717a;
+  margin-bottom: 16px;
+}
+
+.summaryText {
+  color: #d4d4d8;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
 @media (max-width: 768px) {
   .ctaCard {
     flex-direction: column;

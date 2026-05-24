@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
-
+import { useEffect, useState } from "react";
 import { useAuditStore } from "@/store/audit-store";
 import { runAudit } from "@/lib/audit";
 
@@ -23,6 +23,58 @@ export default function AuditResultsPage() {
     runAudit({selectedTools, toolDetails, teamSize, useCase,});
 
   const {recommendations, totalMonthlySavings, totalAnnualSavings} = audit;
+
+  const [summary, setSummary] = useState("");
+
+  const [loadingSummary, setLoadingSummary] = useState(true);
+
+  const recommendationsData = recommendations;
+
+  const savingsValue = totalMonthlySavings;
+
+useEffect(() => {
+  async function fetchSummary() {
+    if (recommendationsData.length === 0) {
+      return;
+    }
+
+    try {
+      const response =
+        await fetch("/api/summary",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+            },
+
+            body: JSON.stringify({
+              recommendations: recommendationsData,
+              totalSavings: savingsValue,
+            }),
+          }
+        );
+
+      const data = await response.json();
+
+      setSummary(data.summary);
+
+    } catch {
+      setSummary(
+        `Your audit identified approximately ₹${savingsValue.toLocaleString()} in potential monthly savings across ${recommendationsData.length} optimization opportunities. Your current AI stack appears to contain opportunities for plan optimization and tool consolidation, particularly across overlapping subscriptions and underutilized premium tiers.`
+      );
+
+    } finally {
+      setLoadingSummary(
+        false
+      );
+    }
+  }
+  fetchSummary();
+}, [
+  recommendationsData,
+  savingsValue,
+]);
 
   return (
     <main className={styles.page}>
@@ -92,6 +144,20 @@ export default function AuditResultsPage() {
                 </div>
               )
             )}
+          </div>
+        </section>
+
+        <section className={styles.summary}>
+          <div className={styles.summaryCard}>
+            <p className={styles.summaryLabel}>
+              AI GENERATED SUMMARY
+            </p>
+
+            <p className={styles.summaryText}>
+              {loadingSummary
+                ? "Generating personalized audit summary..."
+                : summary}
+            </p>
           </div>
         </section>
 

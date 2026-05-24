@@ -1,43 +1,38 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
+import type { Recommendation } from "@/lib/audit";
+import { buildSummaryPrompt } from "@/lib/prompts";
 
-const anthropic =
-  new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function POST(req: Request) {
+  let recommendations: Recommendation[] = [];
+  let totalSavings = 0;
+
   try {
     const body = await req.json();
+    recommendations = body.recommendations ?? [];
+    totalSavings = body.totalSavings ?? 0;
 
-    const response = await anthropic.messages.create({
-        model:
-          "claude-3-5-sonnet-latest",
+    const prompt = buildSummaryPrompt(recommendations, totalSavings);
 
-        max_tokens: 200,
-        messages: [
-          {
-            role: "user",
-            content: body.prompt,
-          },
-        ],
+    const model =
+      genAI.getGenerativeModel({
+           model: "gemini-2.0-flash",
       });
 
-    const text = response.content[0];
+    const result = await model.generateContent(prompt);
+
+    const summary = result.response.text();
+
+    return NextResponse.json({summary,});
+
+  } catch (error) {
+    console.log(error);
 
     return NextResponse.json({
-      summary: text.type === "text" ? text.text : "",
+      summary:
+      `Your audit identified approximately ₹${totalSavings.toLocaleString()} in potential monthly savings across ${recommendations.length} optimization opportunities. Your current AI stack appears to contain opportunities for plan optimization and tool consolidation, particularly across overlapping subscriptions and underutilized premium tiers.`,
     });
-
-  } catch {
-    return NextResponse.json(
-      {
-        summary:
-          "Your audit suggests there may be opportunities to reduce AI software spend through tool consolidation and plan optimization.",
-      },
-      {
-        status: 200,
-      }
-    );
   }
 }
