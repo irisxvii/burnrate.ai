@@ -127,13 +127,14 @@ export function runAudit(data: AuditData): AuditResult {
 
   //Overlap rule
 
-  const codingTools = selectedTools.filter((tool) =>
-        [
-          "cursor",
-          "copilot",
-          "windsurf",
-        ].includes(tool)
-    );
+  const codingTools =selectedTools.filter((tool) =>
+    [
+        "cursor",
+        "copilot",
+        "windsurf",
+    ].includes(tool)).sort((a, b) =>
+            (toolDetails[b]?.spend ?? 0) - (toolDetails[a] ?.spend ?? 0)
+        );
 
   if (codingTools.length >= 2) {
     codingTools
