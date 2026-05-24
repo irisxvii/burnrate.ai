@@ -145,6 +145,15 @@ export function runAudit(data: AuditData): AuditResult {
           return;
         }
 
+        const existingIndex =
+            recommendations.findIndex((item) =>
+                item.toolId === toolId
+            );
+
+            if (existingIndex !== -1) {
+            recommendations.splice(existingIndex, 1);
+            }
+
         recommendations.push({
           toolId,
           toolName: TOOL_NAMES[toolId] ?? toolId,
