@@ -54,8 +54,10 @@ export function runAudit(data: AuditData): AuditResult {
       continue;
     }
 
+    const currentSpend = normalizePrice(detail.spend,planInfo.currency);
+
     let recommendedPlan = detail.plan;
-    let recommendedSpend = detail.spend;
+    let recommendedSpend = currentSpend;
     let reason = "Your current setup looks reasonably optimized.";
 
     //Rule 1: Too many seats
@@ -65,7 +67,7 @@ export function runAudit(data: AuditData): AuditResult {
 
       const savings = normalizePrice(unusedSeats * planInfo.pricePerSeat, planInfo.currency);
 
-      recommendedSpend = normalizePrice(detail.spend, planInfo.currency) - savings;
+      recommendedSpend = currentSpend - savings;
 
       reason = `You currently pay for ${detail.seats} seats but only ${teamSize} active users were reported.`;
 
@@ -74,7 +76,7 @@ export function runAudit(data: AuditData): AuditResult {
         toolName: TOOL_NAMES[toolId] ?? toolId,
         currentPlan: detail.plan,
         recommendedPlan: `${detail.plan} (${teamSize} seats)`,
-        currentSpend: normalizePrice(detail.spend, planInfo.currency),
+        currentSpend,
         recommendedSpend,
         savings,
         reason,
@@ -87,9 +89,9 @@ export function runAudit(data: AuditData): AuditResult {
 
     if (planInfo.tier === "pro" && teamSize <= 3) {
 
-      recommendedSpend = normalizePrice(detail.spend, planInfo.currency) * 0.6;
+      recommendedSpend = currentSpend * 0.6;
 
-      const savings = normalizePrice(detail.spend, planInfo.currency) - recommendedSpend;
+      const savings = currentSpend - recommendedSpend;
 
       recommendedPlan = "Lower-tier plan";
 
@@ -100,7 +102,7 @@ export function runAudit(data: AuditData): AuditResult {
         toolName: TOOL_NAMES[toolId] ?? toolId,
         currentPlan: detail.plan,
         recommendedPlan,
-        currentSpend: normalizePrice(detail.spend, planInfo.currency),
+        currentSpend,
         recommendedSpend,
         savings,
         reason,
@@ -116,7 +118,7 @@ export function runAudit(data: AuditData): AuditResult {
       toolName: TOOL_NAMES[toolId] ?? toolId,
       currentPlan: detail.plan,
       recommendedPlan,
-      currentSpend: normalizePrice(detail.spend, planInfo.currency),
+      currentSpend,
       recommendedSpend,
       savings: 0,
       reason,

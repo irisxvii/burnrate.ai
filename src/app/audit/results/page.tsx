@@ -2,51 +2,48 @@
 
 import styles from "./page.module.css";
 
-const mockResults = [
-  {
-    tool: "ChatGPT Team",
-    currentSpend: 60,
-    recommendedPlan: "ChatGPT Plus",
-    recommendedSpend: 20,
-    savings: 40,
-    reason: "Team collaboration features are likely unnecessary for a 2-person workflow.",
-  },
-
-  {
-    tool: "Claude Team",
-    currentSpend: 100,
-    recommendedPlan: "Claude Pro",
-    recommendedSpend: 40,
-    savings: 60,
-    reason: "Your usage pattern suggests individual subscriptions would be more cost effective.",
-  },
-];
+import { useAuditStore } from "@/store/audit-store";
+import { runAudit } from "@/lib/audit";
 
 export default function AuditResultsPage() {
-  const totalMonthlySavings =
-    mockResults.reduce((acc, item) => acc + item.savings, 0);
 
-  const totalAnnualSavings = totalMonthlySavings * 12;
+  const selectedTools =
+    useAuditStore((state) => state.selectedTools);
+
+  const toolDetails =
+    useAuditStore((state) => state.toolDetails);
+
+  const teamSize =
+    useAuditStore((state) => state.teamSize);
+
+  const useCase =
+    useAuditStore((state) => state.useCase);
+
+  const audit = 
+    runAudit({selectedTools, toolDetails, teamSize, useCase,});
+
+  const {recommendations, totalMonthlySavings, totalAnnualSavings} = audit;
 
   return (
     <main className={styles.page}>
       <div className={styles.container}>
+
         <section className={styles.hero}>
           <p className={styles.label}>
             AI SPEND AUDIT RESULTS
           </p>
 
           <h1 className={styles.heroValue}>
-            ${totalMonthlySavings}/mo
+            ₹{Math.round(totalMonthlySavings).toLocaleString()}/mo
           </h1>
 
           <p className={styles.heroSubValue}>
-            ${totalAnnualSavings.toLocaleString()}
-            /year in potential savings
+            ₹
+            {Math.round(totalAnnualSavings).toLocaleString()}/year in potential savings
           </p>
 
           <p className={styles.heroText}>
-            Your team is overspending on overlapping subscriptions and underutilized team plans.
+            Your team may be overspending on overlapping subscriptions and underutilized plans.
           </p>
         </section>
 
@@ -57,63 +54,63 @@ export default function AuditResultsPage() {
           </div>
 
           <div className={styles.cards}>
-            {mockResults.map((result) => (
-              <div
-                key={result.tool}
-                className={styles.card}
-              >
-                <div className={styles.cardTop}>
-                  <div>
-                    <h3>{result.tool}</h3>
+            {recommendations.map(
+              (result) => (
+                <div
+                  key={result.toolId}
+                  className={styles.card}
+                >
+                  <div className={styles.cardTop}>
+                    <div>
+                      <h3>{result.toolName}</h3>
 
-                    <p>Current spend: ${result.currentSpend}/mo</p>
+                      <p>
+                        Current spend:₹{Math.round(result.currentSpend).toLocaleString()}/mo
+                      </p>
+                    </div>
+
+                    <div className={styles.savings}>
+                      +₹{Math.round(result.savings).toLocaleString()}/mo
+                    </div>
                   </div>
 
-                  <div className={styles.savings}>
-                    +${result.savings}/mo
+                  <div className={styles.planBox}>
+                    <div>
+                      <span>Recommended Plan</span>
+
+                      <h4>{result.recommendedPlan}</h4>
+                    </div>
+
+                    <div className={styles.reducedSpend}>
+                      ₹{Math.round(result.recommendedSpend).toLocaleString()}/mo
+                    </div>
                   </div>
+
+                  <p className={styles.reason}>
+                    {result.reason}
+                  </p>
                 </div>
+              )
+            )}
+          </div>
+        </section>
 
-                <div className={styles.planBox}>
-                  <div>
-                    <span>
-                      Recommended Plan
-                    </span>
-
-                    <h4>{result.recommendedPlan}</h4>
-                  </div>
-
-                  <div className={styles.reducedSpend}>
-                    $
-                    {result.recommendedSpend}/mo
-                  </div>
-                </div>
-
-                <p className={styles.reason}>
-                  {result.reason}
+        {totalMonthlySavings >= 4000 && (
+          <section className={styles.cta}>
+            <div className={styles.ctaCard}>
+              <div>
+                <p className={styles.ctaLabel}>
+                  NEED DEEPER OPTIMIZATION?
                 </p>
+                <h2>Capture even more savings with infrastructure-level AI cost optimization.</h2>
               </div>
-            ))}
-          </div>
-        </section>
 
-        <section className={styles.cta}>
-          <div className={styles.ctaCard}>
-            <div>
-              <p className={styles.ctaLabel}>
-                NEED DEEPER OPTIMIZATION?
-              </p>
-
-              <h2>
-                Capture even more savings with infrastructure-level AI cost optimization.
-              </h2>
+              <button className={styles.ctaBtn}>
+                Talk to Credex
+              </button>
             </div>
-
-            <button className={styles.ctaBtn}>
-              Talk to Credex
-            </button>
-          </div>
-        </section>
+          </section>
+        )}
       </div>
     </main>
   );
