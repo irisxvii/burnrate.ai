@@ -1,5 +1,6 @@
 import { AuditData } from "@/types/audit";
 import { pricing } from "@/data/pricing";
+import { normalizePrice } from "./currency";
 
 export interface Recommendation {
   toolId: string;
@@ -59,12 +60,12 @@ export function runAudit(data: AuditData): AuditResult {
 
     //Rule 1: Too many seats
 
-    if (detail.seats > teamSize && teamSize > 0 && planInfo.pricePerSeat) {
+    if (detail.seats > teamSize && teamSize > 0 && planInfo.pricePerSeat != null) {
       const unusedSeats = detail.seats - teamSize;
 
-      const savings = unusedSeats * planInfo.pricePerSeat;
+      const savings = normalizePrice(unusedSeats * planInfo.pricePerSeat, planInfo.currency);
 
-      recommendedSpend = detail.spend - savings;
+      recommendedSpend = normalizePrice(detail.spend, planInfo.currency) - savings;
 
       reason = `You currently pay for ${detail.seats} seats but only ${teamSize} active users were reported.`;
 
@@ -73,7 +74,7 @@ export function runAudit(data: AuditData): AuditResult {
         toolName: TOOL_NAMES[toolId] ?? toolId,
         currentPlan: detail.plan,
         recommendedPlan: `${detail.plan} (${teamSize} seats)`,
-        currentSpend: detail.spend,
+        currentSpend: normalizePrice(detail.spend, planInfo.currency),
         recommendedSpend,
         savings,
         reason,
@@ -85,9 +86,10 @@ export function runAudit(data: AuditData): AuditResult {
     //Rule 2: Expensive plans for tiny teams
 
     if (planInfo.tier === "pro" && teamSize <= 3) {
-      recommendedSpend = detail.spend * 0.6;
 
-      const savings = detail.spend - recommendedSpend;
+      recommendedSpend = normalizePrice(detail.spend, planInfo.currency) * 0.6;
+
+      const savings = normalizePrice(detail.spend, planInfo.currency) - recommendedSpend;
 
       recommendedPlan = "Lower-tier plan";
 
@@ -98,7 +100,7 @@ export function runAudit(data: AuditData): AuditResult {
         toolName: TOOL_NAMES[toolId] ?? toolId,
         currentPlan: detail.plan,
         recommendedPlan,
-        currentSpend: detail.spend,
+        currentSpend: normalizePrice(detail.spend, planInfo.currency),
         recommendedSpend,
         savings,
         reason,
@@ -114,7 +116,7 @@ export function runAudit(data: AuditData): AuditResult {
       toolName: TOOL_NAMES[toolId] ?? toolId,
       currentPlan: detail.plan,
       recommendedPlan,
-      currentSpend: detail.spend,
+      currentSpend: normalizePrice(detail.spend, planInfo.currency),
       recommendedSpend,
       savings: 0,
       reason,
@@ -141,14 +143,16 @@ export function runAudit(data: AuditData): AuditResult {
           return;
         }
 
+        const overlapPlan = pricing[toolId]?.[detail.plan];
+
         recommendations.push({
           toolId,
           toolName: TOOL_NAMES[toolId] ?? toolId,
           currentPlan: detail.plan,
           recommendedPlan: "Remove tool",
-          currentSpend: detail.spend,
+          currentSpend: normalizePrice(detail.spend, overlapPlan?.currency ?? "USD"),
           recommendedSpend: 0,
-          savings: detail.spend,
+          savings: normalizePrice(detail.spend, overlapPlan?.currency ?? "USD"),
           reason: "Your team currently pays for multiple AI coding assistants with overlapping functionality.",
         });
       });
