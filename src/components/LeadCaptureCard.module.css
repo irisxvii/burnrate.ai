@@ -96,6 +96,23 @@
   line-height: 1.7;
 }
 
+.shareBox {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.shareBox input {
+  flex: 1;
+  background: #18181c;
+  border: 1px solid #27272a;
+  color: #fafafa;
+  border-radius: 16px;
+  padding: 16px 18px;
+  font-size: 15px;
+  outline: none;
+}
+
 @media (max-width: 768px) {
 
   .captureCard {

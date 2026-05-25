@@ -203,6 +203,7 @@ useEffect(() => {
         teamSize={teamSize}
         totalMonthlySavings={totalMonthlySavings}
         selectedTools={selectedTools}
+        recommendations={recommendations}
       />
 
       </div>

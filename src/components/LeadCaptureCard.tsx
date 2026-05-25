@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 import styles from "./LeadCaptureCard.module.css";
+import { Recommendation } from "@/lib/audit";
 
 type Props = {
   teamSize: number;
   totalMonthlySavings: number;
   selectedTools: string[];
+  recommendations: Recommendation[];
 };
 
 export default function LeadCaptureCard({
   teamSize,
   totalMonthlySavings,
   selectedTools,
+  recommendations
 }: Props) {
 
   const [email, setEmail] = useState("");
@@ -24,6 +27,8 @@ export default function LeadCaptureCard({
   const [submittingLead, setSubmittingLead] = useState(false);
 
   const [leadSubmitted, setLeadSubmitted] = useState(false);
+
+  const [shareUrl, setShareUrl] = useState("");
 
   async function submitLead() {
     try {
@@ -43,16 +48,21 @@ export default function LeadCaptureCard({
               teamSize,
               totalSavings: totalMonthlySavings,
               selectedTools,
+              recommendations,
               website: "",
             }),
           }
         );
 
+        const data = await response.json();
+
       if (!response.ok) {
         throw new Error();
       }
 
-      setLeadSubmitted(true);
+    const generatedUrl = `${window.location.origin}/report/${data.auditId}`;
+    setShareUrl(generatedUrl);
+    setLeadSubmitted(true);
 
     } catch (error) {
       console.log(error);
@@ -113,13 +123,26 @@ export default function LeadCaptureCard({
 
           <div className={styles.captureSuccess}>
             <p className={styles.captureLabel}>
-              AUDIT SAVED
+                AUDIT SAVED
             </p>
+            <h2> Your shareable audit report is ready. </h2>
+            <p> A confirmation email has been sent with your audit summary. </p>
 
-            <h2> Your audit report has been saved successfully.</h2>
+            <div className={styles.shareBox}>
+                <input
+                value={shareUrl}
+                readOnly
+                />
 
-            <p> A confirmation email will be sent shortly. </p>
-          </div>
+                <button
+                className={styles.captureBtn}
+                onClick={() => navigator.clipboard.writeText( shareUrl )}
+                >
+                Copy Link
+                </button>
+
+            </div>
+            </div>
         )}
       </div>
     </section>
