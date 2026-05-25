@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./LeadCaptureCard.module.css";
 import { Recommendation } from "@/lib/audit";
+import { toast } from "sonner";
 
 type Props = {
   teamSize: number;
@@ -136,7 +137,10 @@ export default function LeadCaptureCard({
 
                 <button
                 className={styles.captureBtn}
-                onClick={() => navigator.clipboard.writeText( shareUrl )}
+                onClick={() => {
+                    navigator.clipboard.writeText(shareUrl);
+                    toast.success("Link copied to clipboard");
+                }}
                 >
                 Copy Link
                 </button>
