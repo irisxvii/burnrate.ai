@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { resend } from "@/lib/resend";
+import { buildAuditEmail } from "@/lib/email/audit-email";
 
 export async function POST(req: Request) {
   try {
@@ -36,6 +38,13 @@ export async function POST(req: Request) {
         console.log(error);
       throw error;
     }
+
+    await resend.emails.send({
+        from: "BurnRate <onboarding@resend.dev>",
+        to: email,
+        subject: "Your AI spend audit is ready",
+        html: buildAuditEmail({totalSavings}),
+    });
 
     return NextResponse.json({ success: true });
 
