@@ -60,3 +60,19 @@ Also spent time debugging React hook dependency warnings and preventing duplicat
  
 **Plan for tomorrow:**  
 Implement lead capture and storage flow for completed audits. Integrate transactional email confirmation and high-savings follow-up messaging. Also plan to add basic abuse protection.
+
+## Day 5 - 2026-05-25
+
+**Hours worked:** 6
+
+**What I did:**  
+Implemented the lead capture and report sharing flow for the audit results section. Added a component to collect user details and store audit submissions in Supabase with honeypot-based spam protection. Integrated Resend to send styled transactional audit emails after successful submissions. Refactored the email template into a separate utility for cleaner structure. Added public audit record generation and shareable link creation flow for public report pages (hopefully will be fully implemented tmrw).
+
+**What I learned:**  
+I got more comfortable working with backend integrations and handling full submission flows across frontend, API routes, Supabase, and emails.
+
+**Blockers / what I'm stuck on:**  
+Spent some time debugging Supabase configuration issues, RLS policies, and payload mismatches while connecting public audit generation and frontend submission flows.
+
+**Plan for tomorrow:**  
+Build the dynamic public report page using the generated audit IDs, fetch public audit snapshots from Supabase, and implement Open Graph metadata for shareable previews.
