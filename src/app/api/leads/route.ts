@@ -12,6 +12,7 @@ export async function POST(req: Request) {
       teamSize,
       totalSavings,
       selectedTools,
+      recommendations,
       website,
     } = await req.json();
 
@@ -34,10 +35,30 @@ export async function POST(req: Request) {
         selected_tools: selectedTools,
       });
 
-    if (error) {
+      if (error) {
         console.log(error);
       throw error;
     }
+
+      const {
+        data: publicAudit,
+        error: publicAuditError,
+        } = await supabase
+        .from("public_audits")
+        .insert([
+            {
+            total_savings: totalSavings,
+            selected_tools: selectedTools,
+            recommendations,
+            },
+        ])
+        .select()
+        .single();
+
+        if (publicAuditError) {
+            console.log(publicAuditError);
+            throw publicAuditError;
+        }
 
     await resend.emails.send({
         from: "BurnRate <onboarding@resend.dev>",
@@ -46,7 +67,10 @@ export async function POST(req: Request) {
         html: buildAuditEmail({totalSavings}),
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+        success: true,
+        auditId: publicAudit.id,
+    });
 
   } catch (error) {
     console.log("SUPABASE ERROR:", error);
