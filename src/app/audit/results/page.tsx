@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useAuditStore } from "@/store/audit-store";
 import { runAudit } from "@/lib/audit";
 
+import LeadCaptureCard from "@/components/LeadCaptureCard";
+
 export default function AuditResultsPage() {
 
   const selectedTools =
@@ -196,6 +198,13 @@ useEffect(() => {
           </div>
         </section>
       )}
+
+      <LeadCaptureCard
+        teamSize={teamSize}
+        totalMonthlySavings={totalMonthlySavings}
+        selectedTools={selectedTools}
+      />
+
       </div>
     </main>
   );

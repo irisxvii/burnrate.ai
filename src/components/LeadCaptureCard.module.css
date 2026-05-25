@@ -1,0 +1,108 @@
+.capture {
+  margin-top: 40px;
+}
+
+.captureCard {
+  background: #111114;
+  border: 1px solid #27272a;
+  border-radius: 28px;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.captureLabel {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: #71717a;
+  margin-bottom: 14px;
+}
+
+.captureCard h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+  max-width: 720px;
+}
+
+.captureForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.captureForm input {
+  width: 100%;
+  background: #18181c;
+  border: 1px solid #27272a;
+  color: #fafafa;
+  border-radius: 16px;
+  padding: 16px 18px;
+  font-size: 15px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.captureForm input::placeholder {
+  color: #71717a;
+}
+
+.captureForm input:focus {
+  border-color: #9281f7;
+  background: #1b1b20;
+}
+
+.captureBtn {
+  border: none;
+  padding: 16px 22px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+
+  background: linear-gradient(
+    to bottom right,
+    #9281f7,
+    #9a54dc
+  );
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.captureBtn:hover {
+  transform: translateY(-1px);
+}
+
+.captureBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.captureSuccess {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.captureSuccess p:last-child {
+  color: #a1a1aa;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+
+  .captureCard {
+    padding: 24px;
+  }
+
+  .captureCard h2 {
+    font-size: 2rem;
+  }
+}

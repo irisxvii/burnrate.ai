@@ -33,13 +33,14 @@ export async function POST(req: Request) {
       });
 
     if (error) {
+        console.log(error);
       throw error;
     }
 
     return NextResponse.json({ success: true });
-    
+
   } catch (error) {
-    console.log(error);
+    console.log("SUPABASE ERROR:", error);
 
     return NextResponse.json(
       { success: false },
