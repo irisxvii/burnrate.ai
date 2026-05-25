@@ -1,82 +1,28 @@
 "use client";
 
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
 import { useAuditStore } from "@/store/audit-store";
 import { runAudit } from "@/lib/audit";
 
 import LeadCaptureCard from "@/components/LeadCaptureCard";
+import { useAuditSummary } from "@/hooks/useAuditSummary";
 
 export default function AuditResultsPage() {
+  const {
+    selectedTools,
+    toolDetails,
+    teamSize,
+    useCase,
+  } = useAuditStore();
 
-  const selectedTools =
-    useAuditStore((state) => state.selectedTools);
-
-  const toolDetails =
-    useAuditStore((state) => state.toolDetails);
-
-  const teamSize =
-    useAuditStore((state) => state.teamSize);
-
-  const useCase =
-    useAuditStore((state) => state.useCase);
-
-  const audit = 
-    runAudit({selectedTools, toolDetails, teamSize, useCase,});
+  const audit = runAudit({selectedTools, toolDetails, teamSize, useCase,});
 
   const {recommendations, totalMonthlySavings, totalAnnualSavings} = audit;
 
-  const [summary, setSummary] = useState("");
-
-  const [loadingSummary, setLoadingSummary] = useState(true);
-
-  const recommendationsData = recommendations;
-
-  const savingsValue = totalMonthlySavings;
-
-useEffect(() => {
-  async function fetchSummary() {
-    if (recommendationsData.length === 0) {
-      return;
-    }
-
-    try {
-      const response =
-        await fetch("/api/summary",
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type": "application/json",
-            },
-
-            body: JSON.stringify({
-              recommendations: recommendationsData,
-              totalSavings: savingsValue,
-            }),
-          }
-        );
-
-      const data = await response.json();
-
-      setSummary(data.summary);
-
-    } catch {
-      setSummary(
-        `Your audit identified approximately ₹${savingsValue.toLocaleString()} in potential monthly savings across ${recommendationsData.length} optimization opportunities. Your current AI stack appears to contain opportunities for plan optimization and tool consolidation, particularly across overlapping subscriptions and underutilized premium tiers.`
-      );
-
-    } finally {
-      setLoadingSummary(
-        false
-      );
-    }
-  }
-  fetchSummary();
-}, [
-  recommendationsData,
-  savingsValue,
-]);
+  const { summary, loadingSummary } = useAuditSummary({
+    recommendations,
+    totalSavings: totalMonthlySavings,
+  });
 
   return (
     <main className={styles.page}>
