@@ -27,10 +27,10 @@ export default async function Image({
       (
         <div
           style={{
-            display: "flex",
-            background: "#09090b",
             width: "100%",
             height: "100%",
+            display: "flex",
+            background: "#050505",
           }}
         />
       ),
@@ -47,8 +47,8 @@ export default async function Image({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "70px",
-          background: "linear-gradient(to bottom right, #09090b, #18181b)",
+          padding: "48px 56px",
+          background: "#050505",
           color: "white",
           fontFamily: "sans-serif",
         }}
@@ -56,44 +56,50 @@ export default async function Image({
 
         <div
           style={{
-            fontSize: 28,
-            color: "#a1a1aa",
             display: "flex",
+            fontSize: 24,
+            color: "#71717a",
+            letterSpacing: "0.12em",
           }}
         >
-          BurnRate.ai
+          AI SPEND AUDIT RESULTS
         </div>
 
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "20px",
+            gap: "12px",
           }}
         >
 
           <div
             style={{
-              fontSize: 88,
-              fontWeight: 700,
-              letterSpacing: "-4px",
-              background: "linear-gradient(to right, #c4b5fd, #8b5cf6)",
+              display: "flex",
+              alignItems: "flex-end",
+              gap: "8px",
+              lineHeight: 0.9,
+              letterSpacing: "-0.08em",
+              fontWeight: 800,
+              fontSize: 170,
+              background:
+                "linear-gradient(to bottom right, #c4b5fd, #8b5cf6)",
               backgroundClip: "text",
               color: "transparent",
-              display: "flex",
             }}
           >
-            ₹{data.total_savings.toLocaleString()}/mo saved
+            ₹{data.total_savings.toLocaleString()}/mo
           </div>
 
           <div
             style={{
-              fontSize: 36,
-              color: "#d4d4d8",
               display: "flex",
+              fontSize: 42,
+              color: "#d4d4d8",
+              letterSpacing: "-0.04em",
             }}
           >
-            AI Spend Optimization Audit
+            in potential AI savings
           </div>
 
         </div>
@@ -101,7 +107,7 @@ export default async function Image({
         <div
           style={{
             display: "flex",
-            gap: "16px",
+            gap: "14px",
             flexWrap: "wrap",
           }}
         >
@@ -111,14 +117,18 @@ export default async function Image({
               <div
                 key={tool}
                 style={{
-                  padding: "12px 20px",
-                  borderRadius: 999,
-                  background: "#18181b",
-                  border: "1px solid #27272a",
-                  fontSize: 24,
-                  color: "#e4e4e7",
-                  textTransform: "capitalize",
                   display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "14px 24px",
+                  borderRadius: 999,
+                  background: "#111114",
+                  border:
+                    "1px solid #27272a",
+                  fontSize: 24,
+                  color: "#fafafa",
+                  textTransform:
+                    "capitalize",
                 }}
               >
                 {tool}
@@ -127,6 +137,7 @@ export default async function Image({
           )}
 
         </div>
+
       </div>
     ),
     size
