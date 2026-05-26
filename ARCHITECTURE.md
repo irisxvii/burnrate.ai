@@ -154,3 +154,78 @@ This page:
 - Renders the recommendations
 - Generates dynamic metadata
 - Generates dynamic Open Graph preview images for social sharing
+
+# Why I Chose This Stack
+## Next.js
+
+I used Next.js App Router because the project needed both frontend and backend concerns in the same codebase.
+
+The app includes:
+- multi-step onboarding flows
+- API routes
+- dynamic public report pages
+- generated metadata
+- dynamic Open Graph images
+
+Keeping everything inside one framework made the architecture much simpler and avoided having to manage a separate backend service for an MVP.
+
+---
+
+## TypeScript
+
+The app contains a lot of structured data:
+- audit results
+- pricing models
+- recommendation objects
+- savings calculations
+
+TypeScript helped keep those flows predictable as the project grew.
+
+---
+
+## Zustand
+
+The onboarding flow spans multiple pages, so I needed lightweight shared client state.
+
+I chose Zustand because it’s much simpler than setting up reducers or larger state-management solutions for this size of app.
+
+---
+
+## Supabase
+
+For this project, I wanted something faster to iterate with than building a custom backend from scratch.
+
+Supabase gave me:
+- Postgres
+- hosted database
+- simple server-side queries
+
+---
+
+## Resend
+
+The app sends audit confirmation emails and shareable report links. I used Resend because the integration with Next.js is straightforward.
+
+# What I’d Change for ~10k Audits/Day
+
+## Add real abuse protection
+
+For MVP I kept it simple with a honeypot.
+
+If this scaled, I’d add:
+- Redis-backed request tracking
+- CAPTCHA only when needed
+- basic bot detection signals
+
+---
+
+## Cache reports + OG images
+
+Right now everything is generated dynamically.
+
+At scale, I’d cache:
+- `/report/:slug` pages
+- Open Graph images
+- any repeated DB lookups
+
+This would cut down DB load and make link previews way faster.
