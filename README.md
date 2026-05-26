@@ -1,11 +1,53 @@
 # BurnRateAI
 
-BurnRate.ai is an AI spend auditing tool designed for startups and engineering teams using multiple AI subscriptions across their workflow. The platform analyzes overlapping tooling, identifies optimization opportunities, estimates potential savings, and generates shareable audit reports.
+BurnRateAI is an AI spend auditing tool for startups and engineering teams juggling way too many AI subscriptions.
 
-The product is designed for fast-growing teams that have adopted AI tools organically and want better visibility into tooling spend before costs spiral further.
+The product helps teams understand:
+- where AI spend is overlapping
+- which tools are redundant
+- where optimization opportunities exist
+- how much money could potentially be saved
+
+It generates:
+- savings estimates
+- optimization recommendations
+- shareable audit reports
+
+A team might end up paying separately for:
+- Cursor for devs
+- ChatGPT Team for general usage
+- Copilot because one team prefers it
+- Gemini because someone wanted to try it
+
+None of those purchases feel expensive individually.
+But together, they quietly turn into a surprisingly large operational cost.
+
+BurnRate.ai is designed for teams that adopted AI tools organically and now want a clearer picture of what they’re actually paying for.
 
 
-# Screenshots / Demo
+
+
+
+# Demo & Screenshots
+
+https://github.com/user-attachments/assets/5365f4c6-735d-4252-8605-7ba2e3466853
+
+
+
+<img width="1123" height="483" alt="image" src="https://github.com/user-attachments/assets/b264d069-871f-48ec-a95c-30e88343ea66" />
+*link preview in discord*
+
+<img width="1731" height="921" alt="image" src="https://github.com/user-attachments/assets/acabc2c7-6589-4802-b191-51efc21f02d2" />
+*email sent*
+
+<img width="1847" height="933" alt="image" src="https://github.com/user-attachments/assets/ea14c858-890d-41ef-9e68-ccd46fec864b" />
+*step 1 of 3*
+
+<img width="1848" height="938" alt="image" src="https://github.com/user-attachments/assets/0b5c43c3-d046-4768-accb-8c9646c0b480" />
+*results page* <br/>
+added only few screenshots as ive added a seperate demo video
+
+
 
 # Quick Start
 
