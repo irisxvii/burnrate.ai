@@ -22,7 +22,7 @@ A team might end up paying separately for:
 None of those purchases feel expensive individually.
 But together, they quietly turn into a surprisingly large operational cost.
 
-BurnRate.ai is designed for teams that adopted AI tools organically and now want a clearer picture of what they’re actually paying for.
+BurnRateAI is designed for teams that adopted AI tools organically and now want a clearer picture of what they’re actually paying for.
 
 
 
