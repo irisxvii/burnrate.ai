@@ -40,6 +40,8 @@ export async function POST(req: Request) {
       throw error;
     }
 
+      const slug = `credex-${Math.floor(1000 + Math.random() * 9000)}`;
+
       const {
         data: publicAudit,
         error: publicAuditError,
@@ -50,6 +52,7 @@ export async function POST(req: Request) {
             total_savings: totalSavings,
             selected_tools: selectedTools,
             recommendations,
+            slug,
             },
         ])
         .select()
@@ -69,7 +72,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
         success: true,
-        auditId: publicAudit.id,
+        auditSlug: publicAudit.slug,
     });
 
   } catch (error) {

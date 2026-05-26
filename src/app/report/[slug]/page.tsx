@@ -6,20 +6,20 @@ import RecommendationsList from "@/components/RecommendationsList";
 import styles from "@/app/audit/results/page.module.css";
 
 type Props = {
-  params: Promise<{id: string;}>;
+  params: Promise<{slug: string;}>;
 };
 
 export default async function PublicReportPage({
   params,
 }: Props) {
 
-    const { id } = await params;
+  const { slug } = await params;
 
   const { data, error } =
     await supabase
       .from("public_audits")
       .select("*")
-      .eq("id", id)
+      .eq("slug", slug)
       .single();
 
   if (error || !data) {

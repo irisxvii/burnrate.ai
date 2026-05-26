@@ -61,7 +61,7 @@ export default function LeadCaptureCard({
         throw new Error();
       }
 
-    const generatedUrl = `${window.location.origin}/report/${data.auditId}`;
+    const generatedUrl = `${window.location.origin}/report/${data.auditSlug}`;
     setShareUrl(generatedUrl);
     setLeadSubmitted(true);
 
