@@ -7,18 +7,7 @@ import { useAuditStore } from "@/store/audit-store";
 
 export default function AuditTeamPage() {
   const router = useRouter();
-
-  const teamSize = 
-    useAuditStore((state) => state.teamSize);
-
-  const setTeamSize = 
-    useAuditStore((state) => state.setTeamSize);
-
-  const useCase = 
-    useAuditStore((state) => state.useCase);
-
-  const setUseCase = 
-    useAuditStore((state) => state.setUseCase);
+  const { teamSize, setTeamSize, useCase, setUseCase } = useAuditStore();
 
   const useCases = [
     "Coding",

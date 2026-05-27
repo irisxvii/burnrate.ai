@@ -13,9 +13,7 @@ interface AuditStore extends AuditData {
   ) => void;
 
   setUseCase: (useCase: string) => void;
-
   setTeamSize: (size: number) => void;
-
   resetAudit: () => void;
 }
 
@@ -32,8 +30,7 @@ export const useAuditStore =
       (set) => ({
         ...initialState,
 
-        setSelectedTools: (tools) =>
-          set({selectedTools: tools,}),
+        setSelectedTools: (tools) => set({selectedTools: tools,}),
 
         updateTool: (toolId, field, value) =>
           set((state) => ({
@@ -41,27 +38,17 @@ export const useAuditStore =
               ...state.toolDetails,
 
               [toolId]: {
-                ...(state.toolDetails[
-                  toolId
-                ] || {}),
-
+                ...(state.toolDetails[toolId] || {}),
                 [field]: value,
               },
             },
           })),
 
-        setUseCase: (useCase) =>
-          set({useCase,}),
-
-        setTeamSize: (teamSize) =>
-          set({teamSize,}),
-
-        resetAudit: () =>
-          set({...initialState,}),
+        setUseCase: (useCase) => set({useCase,}),
+        setTeamSize: (teamSize) => set({teamSize,}),
+        resetAudit: () => set({...initialState,}),
       }),
 
-      {
-        name: "burnrate-audit",
-      }
+      { name: "burnrate-audit" }
     )
   );

@@ -1,29 +1,18 @@
 "use client";
 
 import styles from "./page.module.css";
-import Image from "next/image";
 import { tools } from "@/data/tools";
-import { plans } from "@/data/plans";
 
 import { useAuditStore } from "@/store/audit-store";
 import { useRouter } from "next/navigation";
+import ToolCard from "@/components/ToolCard";
 
 export default function AuditDetailsPage() {
-    const router = useRouter();
+  const router = useRouter();
+  const {selectedTools, toolDetails, updateTool} = useAuditStore();
 
-    const selectedTools =
-      useAuditStore((state) => state.selectedTools);
-
-    const toolDetails =
-      useAuditStore((state) => state.toolDetails);
-
-    const updateTool =
-      useAuditStore((state) => state.updateTool);
-
-    const filteredTools = 
-      tools.filter((tool) =>
-        selectedTools.includes(tool.id)
-    );
+  const filteredTools = tools.filter((tool) =>
+    selectedTools.includes(tool.id));
 
   return (
     <main className={styles.page}>
@@ -44,91 +33,19 @@ export default function AuditDetailsPage() {
 
         <div className={styles.cards}>
           {filteredTools.map((tool) => (
-            <div
-              className={styles.card}
+             <ToolCard
               key={tool.id}
-            >
-              <div className={styles.cardHeader}>
-                <div className={styles.toolInfo}>
-                  <div className={styles.icon}>
-                    <Image
-                        src={tool.icon}
-                        alt={tool.name}
-                        width={24}
-                        height={24}
-                        />
-                  </div>
-
-                  <div>
-                    <h3>{tool.name}</h3>
-                    <p>{tool.category}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.formGrid}>
-                <div className={styles.field}>
-                  <label>Plan</label>
-
-                  <select
-                    value={
-                        toolDetails[tool.id]?.plan || ""
-                    }
-                    onChange={(e) =>
-                        updateTool(tool.id, "plan", e.target.value)
-                    }
-                    >
-
-                    {plans[
-                      tool.id as keyof typeof plans
-                    ]?.map((plan) => (
-                      <option key={plan}>
-                        {plan}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className={styles.field}>
-                  <label>Total Monthly Spend (₹)</label>
-
-                  <input
-                    type="number"
-                    placeholder="₹18000"
-                    value={
-                        toolDetails[tool.id]?.spend || ""
-                    }
-                    onChange={(e) =>
-                        updateTool( tool.id, "spend", Number(e.target.value) )
-                    }
-                    />
-                </div>
-
-                <div className={styles.field}>
-                  <label>Seats</label>
-
-                  <input
-                    type="number"
-                    placeholder="5"
-                    value={
-                        toolDetails[tool.id]?.seats || ""
-                    }
-                    onChange={(e) =>
-                        updateTool( tool.id, "seats", Number(e.target.value) )
-                    }
-                    />
-                </div>
-              </div>
-            </div>
+              tool={tool}
+              toolDetails={toolDetails[tool.id]}
+              updateTool={updateTool}
+            />
           ))}
         </div>
 
         <div className={styles.footer}>
           <button
             className={styles.continueBtn}
-            onClick={() => {
-                router.push("/audit/team");
-            }}
+            onClick={() => { router.push("/audit/team"); }}
             >
             Continue
             </button>
