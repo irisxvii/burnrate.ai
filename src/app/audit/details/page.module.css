@@ -146,3 +146,40 @@
     #9a54dc
   );
 }
+@media (max-width: 768px) {
+  .page {
+    padding: 48px 20px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 20px;
+    min-width: 0;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .toolInfo h3 {
+    font-size: 18px;
+  }
+
+  .footer {
+    justify-content: stretch;
+  }
+
+  .continueBtn {
+    width: 100%;
+  }
+}

@@ -46,8 +46,7 @@ export default function HomePage() {
         </h1>
 
         <p className={styles.subheading}>
-          BurnRate analyzes your AI stack in 60 seconds.
-          No signup required. No integrations. Just answers.
+          Analyze your AI stack, uncover overlapping subscriptions, and identify savings opportunities in minutes.
         </p>
 
         <div className={styles.heroButtons}>
