@@ -28,20 +28,14 @@ generated recommendations across multiple pages, and local state was starting to
 
 ## 3. What I Would Build In Week 2
 
-If I had another week, I’d focus mainly on making the recommendations more “real” and improving the overall trust in the audit output.
-
-On the product side, I’d also upgrade the public report experience with:
+If I had another week, I’d focus mainly on upgrading the public report experience with:
 
 * charts and basic visuals
 * benchmarking views
 * PDF export
 * better sharing/comments flow
-* simple history comparisons over time
 
 A big focus would be fixing the Gemini reliability issue properly instead of leaning on fallbacks.
-
-I’d also spend more time on mobile responsiveness and accessibility, since most of the focus so far went into core flow and backend reliability.
-
 
 ## 4. How I Used AI Tools
 
