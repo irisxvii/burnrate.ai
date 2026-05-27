@@ -206,6 +206,8 @@ Supabase gave me:
 
 The app sends audit confirmation emails and shareable report links. I used Resend because the integration with Next.js is straightforward.
 
+Right now, email delivery is limited to the account I registered because I don’t have a custom domain configured yet, so I couldn’t fully enable production sender verification.
+
 # What I’d Change for ~10k Audits/Day
 
 ## Add real abuse protection
