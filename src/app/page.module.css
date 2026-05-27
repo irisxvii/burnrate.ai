@@ -156,3 +156,66 @@
   background: #18181c;
   color: white;
 }
+
+@media (max-width: 767px) {
+  .page {
+    overflow-x: hidden;
+  }
+
+  .navInner {
+    padding: 0 16px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .navCta {
+    padding: 8px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .logo {
+    font-size: 14px;
+  }
+
+  .hero {
+    padding-top: 120px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+  }
+
+  .heading {
+    font-size: clamp(2rem, 9vw, 2.3rem);
+    margin-bottom: 16px;
+  }
+
+  .subheading {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 100%;
+    padding: 0 4px;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

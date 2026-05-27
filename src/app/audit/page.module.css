@@ -140,3 +140,9 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+@media (max-width: 768px) {
+  .continueBtn {
+    width: 100%;
+  } 
+}
