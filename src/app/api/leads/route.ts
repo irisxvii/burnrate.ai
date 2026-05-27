@@ -64,7 +64,7 @@ export async function POST(req: Request) {
         }
 
     await resend.emails.send({
-        from: "BurnRate <onboarding@resend.dev>",
+        from: "BurnRate <audit@burnrateai.dev>",
         to: email,
         subject: "Your AI spend audit is ready",
         html: buildAuditEmail({totalSavings}),
