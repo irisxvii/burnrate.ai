@@ -175,5 +175,5 @@ Trade-off:
 # Deployed URL
 
 ```txt
-burnrateai.vercel.app
+burnrateai.dev
 ```
